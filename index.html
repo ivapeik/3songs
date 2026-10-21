@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Working with the HTML Audio Element</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <section class="player">
+    <h1>შესანახი ჯუზები</h1>
+    <div class="song1">
+      <h2><a href="https://www.youtube.com/watch?v=_i_NW0fL1p8&list=LL&index=37" target="_blank" rel="noopener noreferrer">Fed Up</a></h2>
+      <p>Artist: The Almighty Way</p>
+      <audio src="./assets/fed-up.mp3" loop controls></audio>
+    </div>
+    <div class="song2">
+      <h2><a href="https://www.youtube.com/watch?v=PQLbPu69yVo&list=LL&index=45" target="_blank" rel="noopener noreferrer">Keep Your Head</a></h2>
+      <p>Artist: The B.L.U.N.T.E.D. Crew</p>
+      <audio src="./assets/keep-your-head.mp3" loop controls></audio>
+    </div>
+    <div class="song3">
+      <h2><a href="https://www.youtube.com/watch?v=L-EdRdbx6t8&list=LL&index=30" target="_blank" rel="noopener noreferrer">De La Soul</a></h2>
+      <p>Artist: De La Soul</p>
+      <audio src="./assets/keepin-the-faith.mp3" loop controls></audio>
+    </div>
+  </section>
+  <script>
+  const players = document.querySelectorAll("audio");
+  const songs = document.querySelectorAll(".song1, .song2, .song3");
+
+  // Tap a song box: play if paused, pause if playing
+  songs.forEach((song) => {
+    const audio = song.querySelector("audio");
+
+    song.addEventListener("click", (event) => {
+      // Ignore taps on the player controls, they already work on their own
+      if (event.target.closest("audio")) return;
+
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
+  });
+
+  // When one song starts, pause all the others
+  players.forEach((current) => {
+    current.addEventListener("play", () => {
+      players.forEach((other) => {
+        if (other !== current) {
+          other.pause();
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>
